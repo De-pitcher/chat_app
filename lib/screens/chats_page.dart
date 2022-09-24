@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:chat_app/common/common.dart';
 
 class ChatsPage extends StatefulWidget {
+  static const String id = '/recent_chats';
   const ChatsPage({super.key});
 
   @override
@@ -15,7 +16,8 @@ class ChatsPage extends StatefulWidget {
 
 class _ChatsPageState extends State<ChatsPage> {
   final ScrollController _controller = ScrollController();
-  int _currentIndex = 0;
+  // int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +81,7 @@ class _ChatsPageState extends State<ChatsPage> {
           )
         ],
       ),
-      bottomNavigationBar: BottomBarNav()
+      // bottomNavigationBar: BottomBarNav(),
     );
   }
 }
