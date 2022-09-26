@@ -1,13 +1,16 @@
-import 'package:chat_app/utils/utils.dart';
+import 'package:chat_app/common/common.dart';
 import 'package:flutter/material.dart';
 
 class Avatar extends StatelessWidget {
   final String? imageUrl;
   final bool isOnline;
+  final bool? isUserAvatar, isNetwork;
   const Avatar({
     Key? key,
     this.imageUrl,
     required this.isOnline,
+    this.isUserAvatar,
+    this.isNetwork,
   }) : super(key: key);
 
   @override
@@ -30,14 +33,18 @@ class Avatar extends StatelessWidget {
               ),
             ),
             child: imageUrl != null
-                ? Image.asset(imageUrl!)
-                : const Icon(Icons.add),
+                ? isNetwork == true
+                    ? Image.network(imageUrl!)
+                    : Image.asset(imageUrl!)
+                : isUserAvatar == false
+                    ? const Icon(Icons.add)
+                    : const Icon(Icons.person),
           ),
         ),
         isOnline
             ? Positioned(
-              bottom: 0,
-              right: 0,
+                bottom: 0,
+                right: 0,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: const Icon(

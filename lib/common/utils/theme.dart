@@ -13,8 +13,11 @@ ThemeData _theme() {
         background: Colors.white,
         onBackground: Colors.white,
       ),
-      textTheme: _textTheme(base.textTheme));
+      textTheme: _textTheme(base.textTheme),
+      // textButtonTheme: 
+      );
 }
+
 
 TextTheme _textTheme(TextTheme base) => base.copyWith(
       // displaySmall: GoogleFonts.mulish(
@@ -115,7 +118,7 @@ TextTheme _textTheme(TextTheme base) => base.copyWith(
       ),
       headline5: GoogleFonts.mulish(
         fontWeight: FontWeight.w500,
-        fontSize: 18,
+        fontSize: 27,
         color: AppColor.blackColor,
       ),
       headline6: GoogleFonts.mulish(

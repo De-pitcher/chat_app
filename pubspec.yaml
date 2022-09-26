@@ -38,6 +38,20 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.5
+  cloud_firestore: ^3.4.8
+  firebase_core: ^1.22.0
+  firebase_storage: ^10.3.8
+  path_provider: ^2.0.11
+  image_picker: ^0.8.5+3
+  firebase_auth: ^3.9.0
+  flutter_riverpod: ^1.0.4
+  shared_preferences: ^2.0.15
+  connectivity_plus: ^2.3.7
+  data_connection_checker_tv: ^0.3.5-nullsafety
+  internet_connection_checker: ^0.0.1+4
+  firebase_database: ^9.1.4
+  uuid: ^3.0.6
+  jiffy: ^5.0.0
 
 dev_dependencies:
   flutter_test:

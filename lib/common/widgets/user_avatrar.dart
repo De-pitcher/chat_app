@@ -10,7 +10,8 @@ class UserAvatar extends StatelessWidget {
     Key? key,
     required this.userName,
     this.imageUrl,
-    required this.numberOfUnreadMessage, required this.isOnline,
+    required this.numberOfUnreadMessage,
+    required this.isOnline,
   }) : super(key: key);
 
   @override
@@ -22,6 +23,8 @@ class UserAvatar extends StatelessWidget {
             Avatar(
               imageUrl: imageUrl,
               isOnline: isOnline,
+              isNetwork: true,
+              isUserAvatar: imageUrl == null ? false : true,
             ),
             Text(
               userName,

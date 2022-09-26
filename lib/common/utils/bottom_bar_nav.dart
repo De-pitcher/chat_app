@@ -1,18 +1,33 @@
-import 'package:chat_app/utils/utils.dart';
+import 'package:chat_app/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class BottomBarNav extends StatefulWidget {
+class BottomBarNav extends ConsumerStatefulWidget {
   const BottomBarNav({super.key});
 
   @override
-  State<BottomBarNav> createState() => _BottomBarNavState();
+  ConsumerState<BottomBarNav> createState() => _BottomBarNavState();
 }
 
-class _BottomBarNavState extends State<BottomBarNav> {
+class _BottomBarNavState extends ConsumerState<BottomBarNav> {
+  // ConnectionUtil connectionStatus = ConnectionUtil.getInstance();
+
+  @override
+  void initState() {
+    // connectionStatus.initialize();
+    super.initState();
+  }
+
   int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
+    // connectionStatus.connectionChange.listen((event) {
+    //   setState(() async{
+    //     ref.watch(updateStatusProvider
+    //       .call(connectionStatus.hasConnection));
+    //   });
+    // });
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       items: [
