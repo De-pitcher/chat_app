@@ -1,3 +1,4 @@
+import 'package:chat_app/common/utils/bottom_bar_nav.dart';
 import 'package:chat_app/views/chats_page.dart';
 import 'package:chat_app/views/sign_in_page.dart';
 import 'package:chat_app/views/sign_up_page.dart';
@@ -5,6 +6,8 @@ import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case ParentView.id:
+      return MaterialPageRoute(builder: (_) => const ParentView());
     case SignUpPage.id:
       return MaterialPageRoute(builder: (_) => const SignUpPage());
     case SignInPage.id:

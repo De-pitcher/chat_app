@@ -22,16 +22,6 @@ class AppFirebaseAuth extends AuthRepo {
 
   Stream<User?> get authState => FirebaseAuth.instance.authStateChanges();
 
-//   void initialize() async {
-//     try {
-//   _auth.runTransaction((Transaction tx) {}).timeout(Duration(seconds: 5));
-//   hasConnection = true;
-// } on PlatformException catch(_) { // May be thrown on Airplane mode
-//   hasConnection = false;
-// } on TimeoutException catch(_) {
-//   hasConnection = false;
-// }
-//   }
   @override
   Future createUser(
     String email,
@@ -74,16 +64,11 @@ class AppFirebaseAuth extends AuthRepo {
         email: email,
         password: password,
       );
+      _db.getProfileImage(user.uid);
       appUser = await _db.getUserInfo(response.user!.uid);
-      // print(appUser.userName);
       await userSharedPreference.setUserEmail(appUser.userName);
       await userSharedPreference.setUserId(response.user!.uid);
       return appUser;
-
-      // final res = _db.importContacts(response.user!.uid, email);
-      // print(res);
-
-      // return AppUser(isOnline: false);
     } on FirebaseAuthException {
       rethrow;
     } catch (e) {
@@ -95,30 +80,5 @@ class AppFirebaseAuth extends AuthRepo {
   Future updateStatus(bool isOnline) async {
     final prefs = await SharedPreferences.getInstance();
     final uId = prefs.getString('uId');
-    // await _db.getProfileImage(uId!);
-    // await _db.updateState(uId!, isOnline);
-
-    // try {
-    //   // _db.db.collection('users').doc(uId).update(
-    //   //     {'isOnline': true, 'lastSeen': FieldValue.serverTimestamp()});
-    //   _db.db.runTransaction((transaction) async {
-    //     return transaction;
-    //   }).timeout(const Duration(seconds: 5));
-    //   _db.db.collection('users').doc(uId).update(
-    //         {'isOnline': true, 'lastSeen': FieldValue.serverTimestamp()});
-    // } on PlatformException {
-    //   _db.db.collection('users').doc(uId).update(
-    //       {'isOnline': false, 'lastSeen': FieldValue.serverTimestamp()});
-    // } on TimeoutException {
-    //   _db.db
-    //       .collection('users')
-    //       .doc(uId)
-    //       .set({'isOnline': false, 'lastSeen': Timestamp.now()});
-    // } on SocketException {
-    //   _db.db
-    //       .collection('users')
-    //       .doc(uId)
-    //       .set({'isOnline': false, 'lastSeen': Timestamp.now()});
-    // }
   }
 }

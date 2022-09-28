@@ -1,78 +1,76 @@
 import 'package:chat_app/common/common.dart';
+import 'package:chat_app/screens/search.dart';
+import 'package:chat_app/screens/user.dart';
+import 'package:chat_app/views/chats_page.dart';
+import 'package:chat_app/views/contacts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class BottomBarNav extends ConsumerStatefulWidget {
-  const BottomBarNav({super.key});
+class ParentView extends StatefulWidget {
+  static const id = 'ParentView';
+  const ParentView({super.key});
 
   @override
-  ConsumerState<BottomBarNav> createState() => _BottomBarNavState();
+  State<ParentView> createState() => _ParentViewState();
 }
 
-class _BottomBarNavState extends ConsumerState<BottomBarNav> {
-  // ConnectionUtil connectionStatus = ConnectionUtil.getInstance();
+class _ParentViewState extends State<ParentView> {
+  int _currentIndex = 0;
 
-  @override
-  void initState() {
-    // connectionStatus.initialize();
-    super.initState();
-  }
+  final List<Widget> _navScreen = const [
+    Contacts(),
+    ChatsPage(),
+    Search(),
+    User()
+  ];
 
-  int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
-    // connectionStatus.connectionChange.listen((event) {
-    //   setState(() async{
-    //     ref.watch(updateStatusProvider
-    //       .call(connectionStatus.hasConnection));
-    //   });
-    // });
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      items: [
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            'assets/icons/Vector.svg',
-            color:
-                _currentIndex == 0 ? AppColor.blackColor : AppColor.greyColor,
+    return Scaffold(
+      body: _navScreen[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/icons/Vector.svg',
+              color:
+                  _currentIndex == 0 ? AppColor.blueColor : AppColor.greyColor,
+            ),
+            label: 'Contacts',
           ),
-          label: 'Contacts',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.chat,
-            color:
-                _currentIndex == 1 ? AppColor.blackColor : AppColor.greyColor,
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+              color:
+                  _currentIndex == 1 ? AppColor.blueColor : AppColor.greyColor,
+            ),
+            label: 'Chats',
           ),
-          label: 'Chats',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.search,
-            color:
-                _currentIndex == 2 ? AppColor.blackColor : AppColor.greyColor,
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search,
+              color:
+                  _currentIndex == 2 ? AppColor.blueColor : AppColor.greyColor,
+            ),
+            label: 'Search',
           ),
-          label: 'Search',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            'assets/icons/Vector (1).svg',
-            color:
-                _currentIndex == 3 ? AppColor.blackColor : AppColor.greyColor,
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/icons/Vector (1).svg',
+              color:
+                  _currentIndex == 3 ? AppColor.blueColor : AppColor.greyColor,
+            ),
+            label: 'User',
           ),
-          label: 'User',
-        ),
-      ],
-      // currentIndex: widget.cIndex == 0 ? _currentIndex : widget.cIndex,
-      currentIndex: _currentIndex,
-      selectedItemColor: const Color(0xFF002DE3),
-      onTap: (int index) {
-        setState(() {
-          _currentIndex = index;
-        });
-        // Navigator.pushNamed(context, nav[_currentIndex]);
-      },
+        ],
+        // currentIndex: widget.cIndex == 0 ? _currentIndex : widget.cIndex,
+        currentIndex: _currentIndex,
+        selectedItemColor: AppColor.blueColor,
+        onTap: (int index) {
+          setState(() => _currentIndex = index);
+        },
+      ),
     );
   }
 }

@@ -18,18 +18,6 @@ class Database {
   Future<void> createUserDoc(String uId, Map<String, dynamic> data) async {
     try {
       DatabaseReference ref = database.ref();
-      // final users = await db.collection('users').get();
-      // if (users.docs.isNotEmpty) {
-      //   db.collection('users').get().then((value) {
-      //     for (var element in value.docs) {
-      //       if (element.id == uId) {
-      //         throw FirebaseException(plugin: 'User Already Exsit');
-      //       } else {
-      //         db.collection('users').doc(uId).set(data);
-      //       }
-      //     }
-      //   });
-      // }
       await ref.child('users/$uId').set(data);
     } on FirebaseException {
       rethrow;
@@ -43,11 +31,6 @@ class Database {
     } on FirebaseException {
       rethrow;
     }
-    // DatabaseReference contacts = database.ref().child('contacts');
-    // contacts.onValue.listen((event) {
-    //   final data = event.snapshot.value;
-    //   print(data);
-    // });
   }
 
   Future<List<Contact>> importContacts(String uId, String myEmail) async {
@@ -68,7 +51,6 @@ class Database {
                 userName: value['userName'],
                 lastSeen:
                     DateTime.fromMillisecondsSinceEpoch(value['lastSeen']));
-            // await updateContactInfo(key, contact);
             contacts.add(contact);
           }
         });
@@ -153,12 +135,12 @@ class Database {
   }
 
   Future sendMessage(String uId,
-      {required String message, required String recieverEmail}) async {
+      {required String message, required String recieverUserName}) async {
     final data = {
-      'email': recieverEmail,
+      'email': recieverUserName,
       'message': message,
       'isRead': false,
-      'timeStamp': DateTime.now().toIso8601String()
+      'timeStamp': DateTime.now().millisecondsSinceEpoch,
     };
     return database.ref().child('messages/$uId').push().set(data);
   }
@@ -213,36 +195,6 @@ class Database {
   //   }
   // }
 
-  Future<List<Message>> getMessagesFromContact(String uId, String email) async {
-    List<Message> messages = [];
-    try {
-      final ref = database.ref('messages/$uId');
-      ref.onValue.listen((event) {
-        final data = event.snapshot.value as Map<dynamic, dynamic>;
-
-        final res = data.values;
-        for (var element in res) {
-          if (element['email'] == email) {
-            messages.add(Message(
-                email: element['email'],
-                message: element['message'],
-                isRead: element['isRead'],
-                timestamp: DateTime.parse(element['timeStamp'])));
-          }
-        }
-        messages.sort(
-          (a, b) => a.timestamp.toString().compareTo(b.timestamp.toString()),
-        );
-        print(messages.last.message);
-      });
-    } on FirebaseException {
-      rethrow;
-    } catch (e) {
-      rethrow;
-    }
-    return messages;
-  }
-
   Stream<void> updateUserState(String uId, Contact user) async* {
     final DatabaseReference databaseReference = database.ref();
     final isOnlineTrue = Contact(
@@ -251,8 +203,8 @@ class Database {
         imageUrl: user.imageUrl,
         lastMessage: user.lastMessage,
         isOnline: true,
-        lastSeen: null);
-    await database.ref().update(isOnlineTrue.toMap());
+        lastSeen: DateTime.now());
+    await database.ref().child('contacts/$uId').update(isOnlineTrue.toMap());
     final isOnlinefalse = Contact(
         email: user.email,
         userName: user.userName,
@@ -261,7 +213,7 @@ class Database {
         isOnline: false,
         lastSeen: user.lastSeen);
     await databaseReference
-        .child(uId)
+        .child('contacts/$uId')
         .onDisconnect()
         .update(isOnlinefalse.toMap());
   }

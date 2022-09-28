@@ -13,7 +13,6 @@ class ChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Card(
@@ -51,32 +50,31 @@ class ChatTile extends StatelessWidget {
                       lastSeen ?? '',
                       style: Theme.of(context).textTheme.headline6,
                     )
-                  : Column(
-                      children: [
-                        Text(
-                          lastSeen ?? '',
-                          style: Theme.of(context).textTheme.headline3,
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          height: 20,
-                          width: 22,
-                          padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          constraints:
-                              const BoxConstraints(maxHeight: 20, maxWidth: 20),
-                          child: Center(
-                            child: Text(
-                              'messages',
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  : Column(children: [
+                      Text(
+                        lastSeen ?? '',
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                      const SizedBox(height: 10),
+                      // Container(
+                      //   height: 20,
+                      //   width: 22,
+                      //   padding: const EdgeInsets.all(1),
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.red,
+                      //     borderRadius: BorderRadius.circular(10),
+                      //   ),
+                      //   constraints:
+                      //       const BoxConstraints(maxHeight: 20, maxWidth: 20),
+                      //   child: Center(
+                      //     child: Text(
+                      //       '1',
+                      //       style: Theme.of(context).textTheme.caption,
+                      //     ),
+                      //   ),
+                      // ),
+                    
+                    ]),
             ],
           ),
         ),

@@ -50,7 +50,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             onPressed: () => Navigator.pushNamed(context, SignInPage.id),
           ),
         ),
-        data: (data) => Navigator.pushNamed(context, ChatsPage.id),
+        data: (data) => Navigator.pushNamed(context, ParentView.id),
       ),
     );
     return Scaffold(
