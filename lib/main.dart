@@ -1,5 +1,6 @@
 import 'package:chat_app/screens/chat_room.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'common/bottom_nav_view.dart';
 import 'screens/chats_page.dart';
@@ -9,7 +10,7 @@ import 'screens/user.dart';
 import 'utils/utils.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
